@@ -171,10 +171,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # File Upload Settings
 # Maximum size for uploaded files (5MB)
-FILE_UPLOAD_MAX_MEMORY_SIZE = os.environ.get("FILE_UPLOAD_MAX_MEMORY_SIZE", default=5242880)
-DATA_UPLOAD_MAX_MEMORY_SIZE = os.environ.get("DATA_UPLOAD_MAX_MEMORY_SIZE", default=5242880)
+FILE_UPLOAD_MAX_MEMORY_SIZE = int(os.environ.get("FILE_UPLOAD_MAX_MEMORY_SIZE", default=5242880))
+DATA_UPLOAD_MAX_MEMORY_SIZE = int(os.environ.get("DATA_UPLOAD_MAX_MEMORY_SIZE", default=5242880))
 # Maximum size for request body (5MB)
-DATA_UPLOAD_MAX_NUMBER_FIELDS = os.environ.get("DATA_UPLOAD_MAX_NUMBER_FIELDS", default=10000)
+DATA_UPLOAD_MAX_NUMBER_FIELDS = int(os.environ.get("DATA_UPLOAD_MAX_NUMBER_FIELDS", default=10000))
 
 # Temporary file upload settings
 FILE_UPLOAD_TEMP_DIR = BASE_DIR / "tmp"
