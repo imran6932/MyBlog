@@ -2,8 +2,7 @@
 
 My personal blog website, built with a React frontend and Django REST Framework backend.
 
-🌐 **Live Blog:** [https://blog.imranansari.in](https://blog.imranansari.in)  
-⚙️ **Backend API:** [https://blog-api.imranansari.in](https://blog-api.imranansari.in)  
+🌐 **Live Blog:** [https://blog.imranansari.in](https://blog.imranansari.in)   
 📚 **Production API Documentation (Swagger):** [https://blog-api.imranansari.in/api/docs/](https://blog-api.imranansari.in/api/docs/)
 
 ## Features
@@ -63,7 +62,6 @@ Follow the frontend's own setup instructions and environment configuration to ru
 ## Production
 
 - **Website:** [blog.imranansari.in](https://blog.imranansari.in)
-- **Backend API:** [blog-api.imranansari.in](https://blog-api.imranansari.in)
 - **Swagger API Docs:** [blog-api.imranansari.in/api/docs/](https://blog-api.imranansari.in/api/docs/)
 
 Production deployment uses the project's configured services and environment variables. Keep `DEBUG=False` in production and store secrets outside the repository.
