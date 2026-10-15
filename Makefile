@@ -68,7 +68,7 @@ uninstall-frontend:
 	@echo ">>> Uninstall complete."
 
 blog-react-build:
-	@cd /home/Projects/blog_react && sudo rm -rf node_modules && sudo rm -rf dist && yarn install && yarn run build
+	@cd /home/MyBlog/frontend && sudo rm -rf node_modules && sudo rm -rf dist && yarn install && yarn run build
 	@echo "All react projects clean and build completed\n"
 	
 
