@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+
+# Blog backend
+  backend:
+    build: ./backend
+    container_name: blog_backend
+    env_file:
+      - ./backend/.env
+    command: bash -c "
+      python manage.py makemigrations && 
+      python manage.py migrate  && 
+      python manage.py collectstatic --noinput && 
+      gunicorn backend.wsgi:application -c gunicorn.conf.py"
+    volumes:
+      # - static_files:/app/static
+      # - media_files:/app/media
+      - ./backend/static:/app/static
+      - ./backend/media:/app/media
+      - ./backend/DEBUG_LOGS:/app/DEBUG_LOGS
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - postgres_db
+
+  redis:
+    image: redis:alpine 
+    container_name: blog_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  celery-beat:
+    restart: unless-stopped
+    build: ./backend
+    container_name: blog_celery_beat
+    env_file:
+      - ./backend/.env
+    command: bash -c "
+      celery -A backend.celery beat --logfile=celery_beat.log --loglevel=INFO
+      "
+    depends_on:
+      - backend
+
+  celery-worker:
+    restart: unless-stopped
+    build: ./backend
+    container_name: blog_celery_worker
+    env_file:
+      - ./backend/.env
+    command: bash -c "
+      celery -A backend.celery worker --logfile=celery_worker.log --loglevel=INFO --pool=solo
+      "
+    depends_on:
+      - celery-beat
+
+  postgres_db:
+    image: postgres:16-alpine
+    container_name: blog_postgres_db
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./backend/postgres_data:/var/lib/postgresql/data
+

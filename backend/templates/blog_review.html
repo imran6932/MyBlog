@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Review Required</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border: 1px solid #dee2e6;
+        }
+        .footer {
+            background-color: #6c757d;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 0 0 8px 8px;
+            font-size: 14px;
+        }
+        .blog-info {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #007bff;
+        }
+        .blog-preview {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .status-inactive { background-color: #ffc107; color: #000; }
+        .status-published { background-color: #28a745; color: #fff; }
+        .status-archived { background-color: #6c757d; color: #fff; }
+        .action-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .action-created { background-color: #d4edda; color: #155724; }
+        .action-updated { background-color: #d1ecf1; color: #0c5460; }
+        .info-row {
+            margin: 8px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📝 Blog Review Required</h1>
+        <p>A blog post needs your attention</p>
+    </div>
+
+    <div class="content">
+        <div class="action-badge action-{{ action }}">
+            🔔 Blog Post {{ action|title }}
+        </div>
+
+        <div class="blog-info">
+            <h2>{{ blog_title }}</h2>
+            
+            <div class="info-row">
+                <span class="info-label">Blog ID:</span> #{{ blog_id }}
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Author:</span> {{ author_name }} ({{ author_email }})
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Status:</span> 
+                <span class="status-badge status-inactive">Inactive - Review Required</span>
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Created:</span> {{ created_at|date:"F d, Y - g:i A" }}
+            </div>
+            
+            <div class="info-row">
+                <span class="info-label">Last Updated:</span> {{ updated_at|date:"F d, Y - g:i A" }}
+            </div>
+        </div>
+
+        <h3>📖 Content Preview:</h3>
+        <div class="blog-preview">
+            {{ blog_description|safe }}
+        </div>
+
+        <div style="background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-top: 20px;">
+            <strong>⚡ Action Required:</strong><br>
+            Please review this blog post and update its status accordingly:
+            <ul>
+                <li><strong>Published:</strong> If the content is approved and ready for public viewing</li>
+                <li><strong>Inactive:</strong> If the content needs revisions</li>
+                <li><strong>Archived:</strong> If the content should be removed from public view</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📧 This is an automated notification from your Blog Management System</p>
+        <p>Generated on {{ "now"|date:"F d, Y - g:i A" }}</p>
+    </div>
+</body>
+</html>

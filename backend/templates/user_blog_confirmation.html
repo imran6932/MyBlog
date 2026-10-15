@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Under Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .email-container {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 20px;
+        }
+        .blog-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        .blog-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 10px;
+        }
+        .blog-meta {
+            color: #6c757d;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .blog-preview {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #dee2e6;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+        .status-info {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .status-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .status-text {
+            font-size: 16px;
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        .status-description {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .timeline {
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .timeline-title {
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .timeline-step {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .step-number {
+            background-color: #1976d2;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .step-current {
+            background-color: #ffc107;
+            color: #000;
+        }
+        .footer {
+            background-color: #6c757d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        .action-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .action-created {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .action-updated {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>📝 Blog Submission Received</h1>
+            <p>Your post is now under review</p>
+        </div>
+
+        <div class="content">
+            <div class="greeting">
+                Hello {{ user_name }},
+            </div>
+
+            <div class="action-badge action-{{ action }}">
+                ✨ Blog {{ action|title }}
+            </div>
+
+            <p>Thank you for your blog submission! We've received your post and it's now under review by our editorial team.</p>
+
+            <div class="blog-info">
+                <div class="blog-title">{{ blog_title }}</div>
+                <div class="blog-meta">
+                    <strong>Blog ID:</strong> #{{ blog_id }}<br>
+                    <strong>Status:</strong> {{ status_display }}<br>
+                    <strong>{{ action|title }} on:</strong> {{ updated_at|date:"F d, Y - g:i A" }}
+                </div>
+                
+                <div class="blog-preview">
+                    {{ blog_description|safe }}
+                </div>
+            </div>
+
+            <div class="status-info">
+                <div class="status-icon">⏳</div>
+                <div class="status-text">Review in Progress</div>
+                <div class="status-description">
+                    Your blog post is currently being reviewed by our editorial team. We'll notify you once the review is complete.
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-title">
+                    📋 Review Process Timeline
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">✓</div>
+                    <div>Blog post submitted successfully</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number step-current">2</div>
+                    <div>Editorial review in progress (you are here)</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">3</div>
+                    <div>Review complete & status updated</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">4</div>
+                    <div>Email notification sent to you</div>
+                </div>
+            </div>
+
+            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                <h3 style="margin-top: 0; color: #495057;">📋 What happens next?</h3>
+                <ul style="color: #6c757d; padding-left: 20px;">
+                    <li><strong>Content Review:</strong> Our team will review your blog post for quality, accuracy, and compliance with our guidelines</li>
+                    <li><strong>Status Update:</strong> Your post status will be updated to "Published" if approved, or you'll receive feedback if changes are needed</li>
+                    <li><strong>Notification:</strong> You'll receive an email once the review is complete</li>
+                    <li><strong>Publication:</strong> Approved posts will be visible to all readers immediately</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #e8f5e8; border-radius: 8px;">
+                <p style="margin: 0; color: #155724; font-weight: bold;">📧 You'll be notified via email once the review is complete!</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Thank you for contributing to our blog community!</strong></p>
+            <p>This is an automated message from your Blog Management System</p>
+            <p>Generated on {{ "now"|date:"F d, Y - g:i A" }}</p>
+        </div>
+    </div>
+</body>
+</html>

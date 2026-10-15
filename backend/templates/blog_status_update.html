@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Status Update</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        .status-published {
+            background-color: #28a745;
+            color: white;
+        }
+        .status-archived {
+            background-color: #6c757d;
+            color: white;
+        }
+        .status-rejected {
+            background-color: #dc3545;
+            color: white;
+        }
+        .status-inactive {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .blog-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #007bff;
+        }
+        .blog-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .status-change {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .arrow {
+            font-size: 20px;
+            color: #007bff;
+            margin: 0 10px;
+        }
+        .message-content {
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+        .cta-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .congratulations {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .rejection {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">📝 My Blog Platform</div>
+            <p>Blog Status Update Notification</p>
+        </div>
+
+        <h2>Hello {{ user_name }}! 👋</h2>
+
+        <div class="status-change">
+            <h3>Your blog post status has been updated:</h3>
+            <div style="margin: 15px 0;">
+                <span class="status-badge status-{{ old_status|lower }}">{{ old_status }}</span>
+                <span class="arrow">→</span>
+                <span class="status-badge status-{{ new_status|lower }}">{{ new_status }}</span>
+            </div>
+        </div>
+
+        <div class="blog-info">
+            <div class="blog-title">{{ blog_title }}</div>
+            <p><strong>Blog ID:</strong> #{{ blog_id }}</p>
+            <p><strong>Updated by:</strong> {{ admin_user }}</p>
+            <p><strong>Updated at:</strong> {{ updated_at|date:"F d, Y g:i A" }}</p>
+        </div>
+
+        {% if new_status_value == 2 %}
+            <!-- Published Status -->
+            <div class="congratulations">
+                <h3>🎉 Congratulations! Your blog post is now LIVE!</h3>
+                <p>Your blog post has been reviewed and approved. It's now visible to all readers on our platform.</p>
+            </div>
+            <div class="message-content">
+                <p>Great news! Your blog post "<strong>{{ blog_title }}</strong>" has been published and is now live on our platform.</p>
+                <p>Your content has been reviewed and meets our quality standards. Readers can now discover and engage with your post.</p>
+                <p><strong>What's next?</strong></p>
+                <ul>
+                    <li>Share your published post with friends and social media</li>
+                    <li>Engage with readers who comment on your post</li>
+                    <li>Consider writing more great content!</li>
+                </ul>
+            </div>
+            <div class="cta-section">
+                <a href="{{ blog_url }}" class="cta-button" target="_blank">View Your Published Post</a>
+            </div>
+
+        {% elif new_status_value == 4 %}
+            <!-- Rejected Status -->
+            <div class="rejection">
+                <h3>❌ Your blog post needs attention</h3>
+                <p>Your blog post couldn't be approved in its current form.</p>
+            </div>
+            <div class="message-content">
+                <p>Unfortunately, your blog post "<strong>{{ blog_title }}</strong>" doesn't meet our current publication standards.</p>
+                <p>This doesn't mean your content isn't valuable! It may need some adjustments to align with our guidelines.</p>
+                <p><strong>Next steps:</strong></p>
+                <ul>
+                    <li>Review our content guidelines</li>
+                    <li>Make necessary improvements to your post</li>
+                    <li>Resubmit your updated content</li>
+                    <li>Contact our support team if you need clarification</li>
+                </ul>
+            </div>
+            <div class="cta-section">
+                <a href="mailto:imranansari.in.official@gmail.com" class="cta-button">Contact Support</a>
+            </div>
+
+        {% else %}
+            <!-- General Status Update -->
+            <div class="message-content">
+                <p>Your blog post "<strong>{{ blog_title }}</strong>" status has been updated from <strong>{{ old_status }}</strong> to <strong>{{ new_status }}</strong>.</p>
+                <p>If you have any questions about this status change, please don't hesitate to contact our support team.</p>
+            </div>
+        {% endif %}
+
+        <div class="footer">
+            <p>This is an automated notification from My Blog Platform.</p>
+            <p>If you have questions, please contact our support team.</p>
+            <p style="margin-top: 15px;">
+                <strong>Thank you for being part of our community!</strong><br>
+                The My Blog Platform Team
+            </p>
+        </div>
+    </div>
+</body>
+</html>
